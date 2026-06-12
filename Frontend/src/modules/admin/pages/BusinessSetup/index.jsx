@@ -646,78 +646,25 @@ const BusinessSetup = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name and Tab Title */}
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">App Name</label>
-                      <input
-                        type="text"
-                        value={brandingData.apps[activeAppBranding].appName}
-                        onChange={(e) => handleAppInputChange(activeAppBranding, 'appName', e.target.value)}
-                        placeholder="Noyo User"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-medium"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">Browser Tab Title</label>
-                      <input
-                        type="text"
-                        value={brandingData.apps[activeAppBranding].tabTitle}
-                        onChange={(e) => handleAppInputChange(activeAppBranding, 'tabTitle', e.target.value)}
-                        placeholder="Noyo | Professional On-Demand Repair Services"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-medium"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">App Name</label>
+                    <input
+                      type="text"
+                      value={brandingData.apps[activeAppBranding].appName}
+                      onChange={(e) => handleAppInputChange(activeAppBranding, 'appName', e.target.value)}
+                      placeholder="Noyo User"
+                      className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-medium"
+                    />
                   </div>
-
-                  {/* Themes / Color Pickers */}
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">Primary Theme Color</label>
-                      <div className="flex gap-2">
-                        <div 
-                          className="w-10 h-10 rounded-xl border border-slate-200 shadow-sm shrink-0 overflow-hidden relative cursor-pointer"
-                          style={{ backgroundColor: brandingData.apps[activeAppBranding].primaryColor }}
-                        >
-                          <input
-                            type="color"
-                            value={brandingData.apps[activeAppBranding].primaryColor || '#4F46E5'}
-                            onChange={(e) => handleAppInputChange(activeAppBranding, 'primaryColor', e.target.value)}
-                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                          />
-                        </div>
-                        <input
-                          type="text"
-                          value={brandingData.apps[activeAppBranding].primaryColor}
-                          onChange={(e) => handleAppInputChange(activeAppBranding, 'primaryColor', e.target.value)}
-                          placeholder="#4F46E5"
-                          className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-semibold uppercase font-mono"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">Secondary Theme Color</label>
-                      <div className="flex gap-2">
-                        <div 
-                          className="w-10 h-10 rounded-xl border border-slate-200 shadow-sm shrink-0 overflow-hidden relative cursor-pointer"
-                          style={{ backgroundColor: brandingData.apps[activeAppBranding].secondaryColor }}
-                        >
-                          <input
-                            type="color"
-                            value={brandingData.apps[activeAppBranding].secondaryColor || '#818CF8'}
-                            onChange={(e) => handleAppInputChange(activeAppBranding, 'secondaryColor', e.target.value)}
-                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                          />
-                        </div>
-                        <input
-                          type="text"
-                          value={brandingData.apps[activeAppBranding].secondaryColor}
-                          onChange={(e) => handleAppInputChange(activeAppBranding, 'secondaryColor', e.target.value)}
-                          placeholder="#818CF8"
-                          className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-semibold uppercase font-mono"
-                        />
-                      </div>
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">Browser Tab Title</label>
+                    <input
+                      type="text"
+                      value={brandingData.apps[activeAppBranding].tabTitle}
+                      onChange={(e) => handleAppInputChange(activeAppBranding, 'tabTitle', e.target.value)}
+                      placeholder="Noyo | Professional On-Demand Repair Services"
+                      className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-medium"
+                    />
                   </div>
                 </div>
 
@@ -1091,21 +1038,6 @@ const BusinessSetup = () => {
                 <span className="text-indigo-400">{brandingData.faviconUrl ? 'Configured ✅' : 'Missing ⚠️'}</span>
               </div>
 
-              <div className="pt-2 space-y-3">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Active Themes</span>
-                {['user', 'vendor', 'worker', 'admin'].map(appKey => (
-                  <div key={appKey} className="flex justify-between items-center bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/40">
-                    <span className="capitalize">{appKey} app:</span>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="w-3.5 h-3.5 rounded-full border border-slate-700 shadow-sm"
-                        style={{ backgroundColor: brandingData.apps[appKey].primaryColor || '#000' }}
-                      />
-                      <span className="font-mono text-[10px] text-white uppercase">{brandingData.apps[appKey].primaryColor || '#000'}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
@@ -1114,7 +1046,7 @@ const BusinessSetup = () => {
             <div className="space-y-1">
               <p className="text-xs font-bold uppercase">Dynamic styling</p>
               <p className="text-[10px] text-amber-700 leading-relaxed font-semibold">
-                Changing themes and app names will instantly update styling variables, window titles and tab favicons dynamically across all matching client systems upon saving.
+                Changing app names will instantly update window titles and tab favicons dynamically across all matching client systems upon saving.
               </p>
             </div>
           </div>
