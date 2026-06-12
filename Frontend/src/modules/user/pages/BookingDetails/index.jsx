@@ -197,9 +197,9 @@ const BookingDetails = () => {
       case 'journey_started':
         return <FiLoader className="w-5 h-5 text-blue-500 animate-spin" />;
       case 'visited':
-        return <FiMapPin className="w-5 h-5 text-teal-600" />;
+        return <FiMapPin className="w-5 h-5 text-brand" />;
       case 'completed':
-        return <FiCheckCircle className="w-5 h-5 text-green-600" />;
+        return <FiCheckCircle className="w-5 h-5 text-brand" />;
       case 'cancelled':
         return <FiXCircle className="w-5 h-5 text-red-500" />;
       case 'awaiting_payment':
@@ -221,9 +221,9 @@ const BookingDetails = () => {
       case 'journey_started':
         return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'visited':
-        return 'bg-teal-50 text-teal-700 border-teal-200';
+        return 'bg-brand-light text-brand border-brand/20';
       case 'completed':
-        return 'bg-gray-50 text-gray-700 border-gray-200';
+        return 'bg-brand-light text-brand border-brand/20';
       case 'cancelled':
         return 'bg-red-50 text-red-700 border-red-200';
       case 'awaiting_payment':
@@ -615,7 +615,7 @@ const BookingDetails = () => {
                 {/* Step 1: Booked */}
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${['pending', 'requested', 'searching', 'confirmed', 'assigned', 'journey_started', 'visited', 'in_progress', 'work_done', 'completed'].includes(booking.status?.toLowerCase())
-                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-gray-100 text-gray-400'
+                    ? 'bg-brand text-white shadow-lg shadow-brand/20' : 'bg-gray-100 text-gray-400'
                     }`}>
                     <FiCheckCircle className="w-4 h-4" />
                   </div>
@@ -625,7 +625,7 @@ const BookingDetails = () => {
                 {/* Step 2: Assigned */}
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${['assigned', 'journey_started', 'visited', 'in_progress', 'work_done', 'completed'].includes(booking.status?.toLowerCase())
-                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-gray-100 text-gray-400'
+                    ? 'bg-brand text-white shadow-lg shadow-brand/20' : 'bg-gray-100 text-gray-400'
                     }`}>
                     2
                   </div>
@@ -635,7 +635,7 @@ const BookingDetails = () => {
                 {/* Step 3: In Progress */}
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${['journey_started', 'visited', 'in_progress', 'work_done', 'completed'].includes(booking.status?.toLowerCase())
-                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-gray-100 text-gray-400'
+                    ? 'bg-brand text-white shadow-lg shadow-brand/20' : 'bg-gray-100 text-gray-400'
                     }`}>
                     3
                   </div>
@@ -645,7 +645,7 @@ const BookingDetails = () => {
                 {/* Step 4: Done */}
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${['work_done', 'completed'].includes(booking.status?.toLowerCase())
-                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-gray-100 text-gray-400'
+                    ? 'bg-brand text-white shadow-lg shadow-brand/20' : 'bg-gray-100 text-gray-400'
                     }`}>
                     4
                   </div>
@@ -654,7 +654,7 @@ const BookingDetails = () => {
               </div>
               {/* Connect lines */}
               <div className="absolute top-[4.5rem] left-[15%] right-[15%] h-0.5 bg-gray-100 -z-0">
-                <div className="h-full bg-teal-500 transition-all duration-1000" style={{
+                <div className="h-full bg-brand transition-all duration-1000" style={{
                   width:
                     ['work_done', 'completed'].includes(booking.status?.toLowerCase()) ? '100%' :
                       ['journey_started', 'visited', 'in_progress'].includes(booking.status?.toLowerCase()) ? '66%' :
@@ -818,14 +818,14 @@ const BookingDetails = () => {
           {/* Professional Arrived Notification - Only after OTP verified */}
           {booking?.status?.toLowerCase() === 'visited' && (
             <div className="relative overflow-hidden rounded-3xl shadow-lg mb-6 active:scale-[0.98] transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500 via-teal-600 to-emerald-700 opacity-95"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-brand-dark opacity-95"></div>
               <div className="relative z-10 p-6 flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 shrink-0">
                   <FiCheckCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white tracking-tight">Professional Arrived</h3>
-                  <p className="text-sm text-teal-50 font-medium">Expert is at your location and starting the work.</p>
+                  <p className="text-sm text-brand-light font-medium">Expert is at your location and starting the work.</p>
                 </div>
               </div>
             </div>
@@ -833,10 +833,10 @@ const BookingDetails = () => {
 
           {/* Waiting for Vendor to initiate Payment */}
           {!booking.customerConfirmationOTP && ['work_done'].includes(booking.status?.toLowerCase()) && !booking.cashCollected && (
-            <div className="bg-white rounded-3xl p-6 shadow-lg border border-teal-100 mb-6 flex items-center gap-4 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-full -translate-y-12 translate-x-12 blur-2xl"></div>
-              <div className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center shrink-0 border border-teal-100">
-                <FiLoader className="w-6 h-6 text-teal-600 animate-spin" />
+            <div className="bg-white rounded-3xl p-6 shadow-lg border border-brand/10 mb-6 flex items-center gap-4 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-light rounded-full -translate-y-12 translate-x-12 blur-2xl"></div>
+              <div className="w-12 h-12 rounded-2xl bg-brand-light flex items-center justify-center shrink-0 border border-brand/10">
+                <FiLoader className="w-6 h-6 text-brand animate-spin" />
               </div>
               <div className="relative z-10">
                 <h3 className="font-bold text-gray-900">Finalizing Bill</h3>
@@ -849,8 +849,8 @@ const BookingDetails = () => {
           {(booking.paymentStatus === 'plan_covered' || (booking.paymentMethod === 'plan_benefit' && booking.paymentStatus !== 'success')) &&
             ['visited', 'in_progress', 'work_done', 'completed'].includes(booking.status?.toLowerCase()) &&
             !booking.customerConfirmationOTP && (
-              <div className="relative overflow-hidden rounded-3xl shadow-lg border border-emerald-100 mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-700 opacity-95"></div>
+              <div className="relative overflow-hidden rounded-3xl shadow-lg border border-brand/10 mb-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-brand-dark opacity-95"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,0.15)_0%,transparent_50%)]"></div>
 
                 <div className="relative z-10 p-6">
@@ -1043,8 +1043,8 @@ const BookingDetails = () => {
 
             <div className="bg-white rounded-3xl p-5 shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100">
               <div className="flex items-start gap-4 mb-4">
-                <div className="w-10 h-10 rounded-2xl bg-teal-50 flex items-center justify-center shrink-0">
-                  <FiMapPin className="w-5 h-5 text-teal-600" />
+                <div className="w-10 h-10 rounded-2xl bg-brand-light flex items-center justify-center shrink-0">
+                  <FiMapPin className="w-5 h-5 text-brand" />
                 </div>
                 <div className="flex-1">
                   <p className="text-xs text-gray-400 font-bold uppercase tracking-wide mb-1">Service Address</p>
@@ -1076,11 +1076,11 @@ const BookingDetails = () => {
             <div className="p-5 space-y-4">
               {/* 1. Service Category */}
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center shrink-0 border border-teal-100 overflow-hidden">
+                <div className="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center shrink-0 border border-brand/10 overflow-hidden">
                   {booking.categoryIcon ? (
                     <img src={booking.categoryIcon} alt="" className="w-6 h-6 object-contain" />
                   ) : (
-                    <FiPackage className="w-5 h-5 text-teal-400" />
+                    <FiPackage className="w-5 h-5 text-brand" />
                   )}
                 </div>
                 <div>
@@ -1119,7 +1119,7 @@ const BookingDetails = () => {
                     <div key={idx} className="flex justify-between items-start bg-gray-50 rounded-xl p-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-100">×{item.quantity}</span>
+                          <span className="text-xs font-bold text-brand bg-brand-light px-1.5 py-0.5 rounded border border-brand/10">×{item.quantity}</span>
                           <span className="text-sm font-semibold text-gray-900 truncate">{item.card?.title || 'Service'}</span>
                         </div>
                         {item.card?.subtitle && <p className="text-xs text-gray-400 mt-0.5 ml-8 line-clamp-1">{item.card.subtitle}</p>}
@@ -1279,7 +1279,7 @@ const BookingDetails = () => {
 
                     <div className="pt-4 mt-2 border-t-2 border-gray-100 flex justify-between items-center">
                       <span className="font-bold text-gray-900 text-lg">Grand Total</span>
-                      <span className="font-black text-teal-700 text-2xl">
+                      <span className="font-black text-brand text-2xl">
                         ₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </span>
                     </div>

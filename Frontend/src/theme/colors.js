@@ -11,23 +11,23 @@
 
 // Homestr LOGO Core Brand Colors
 const brand = {
-  teal: '#347989',
+  teal: '#0284C7',
   yellow: '#D68F35',
   orange: '#BB5F36',
-  gradient: 'linear-gradient(135deg, #347989 0%, #D68F35 50%, #BB5F36 100%)',
-  conic: 'conic-gradient(from 0deg, #347989, #D68F35, #BB5F36, #347989)'
+  gradient: 'linear-gradient(135deg, #0284C7 0%, #D68F35 50%, #BB5F36 100%)',
+  conic: 'conic-gradient(from 0deg, #0284C7, #D68F35, #BB5F36, #0284C7)'
 };
 
 // User Theme Colors
 const userTheme = {
-  backgroundGradient: 'linear-gradient(180deg, #F0FDFA 0%, #F5FAFF 15%, #FFFFFF 30%)',
+  backgroundGradient: 'linear-gradient(180deg, #F0F9FF 0%, #F5FAFF 15%, #FFFFFF 30%)',
   gradient: brand.gradient,
-  headerGradient: 'linear-gradient(135deg, #00a6a6 0%, #008a8a 50%, #006b6b 100%)',
-  headerBg: '#EBF8FF',
+  headerGradient: 'linear-gradient(135deg, #0284C7 0%, #0274b0 50%, #026396 100%)',
+  headerBg: '#F0F9FF',
   button: brand.teal,
   icon: brand.teal,
-  cardShadow: '0 8px 16px -2px rgba(0, 166, 166, 0.15), 0 4px 8px -1px rgba(0, 166, 166, 0.1)',
-  cardBorder: '1px solid rgba(0, 166, 166, 0.15)',
+  cardShadow: '0 8px 16px -2px rgba(2, 132, 199, 0.15), 0 4px 8px -1px rgba(2, 132, 199, 0.1)',
+  cardBorder: '1px solid rgba(2, 132, 199, 0.15)',
   brand: brand
 };
 
