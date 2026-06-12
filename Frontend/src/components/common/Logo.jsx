@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { useBranding } from '../../context/BrandingContext';
 
 /**
  * Centralized Logo Component
@@ -6,11 +7,13 @@ import React, { forwardRef } from 'react';
  * Supports ref for animations
  */
 const Logo = forwardRef(({ className = "h-8 w-auto", ...props }, ref) => {
+  const { logoUrl, appName } = useBranding();
+
   return (
     <img
       ref={ref}
-      src="/Homster-logo.png"
-      alt="Homestr"
+      src={logoUrl || "/Homster-logo.png"}
+      alt={appName || "Homestr"}
       className={`${className} object-contain`}
       {...props}
     />

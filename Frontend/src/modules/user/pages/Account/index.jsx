@@ -5,6 +5,7 @@ import { themeColors } from '../../../../theme';
 import { userAuthService } from '../../../../services/authService';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { motion } from 'framer-motion';
+import { useBranding } from '../../../../context/BrandingContext';
 import {
   FiArrowLeft,
   FiUser,
@@ -30,6 +31,7 @@ import NotificationBell from '../../components/common/NotificationBell';
 
 const Account = () => {
   const navigate = useNavigate();
+  const { appName } = useBranding();
   const [userProfile, setUserProfile] = useState({
     name: 'Verified Customer',
     phone: '',
@@ -429,9 +431,9 @@ const Account = () => {
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-50 transition-colors group-hover:bg-opacity-80"
                   style={{ color: themeColors.brand.teal }}>
-                  <span className="font-bold">H</span>
+                  <span className="font-bold">{(appName || 'Noyo')[0].toUpperCase()}</span>
                 </div>
-                <span className="font-semibold text-gray-900">About Homestr</span>
+                <span className="font-semibold text-gray-900">About {appName || 'Noyo'}</span>
               </div>
               <FiChevronRight className="w-5 h-5 text-gray-300 group-hover:text-teal-500 transition-colors" />
             </motion.button>

@@ -7,36 +7,21 @@ import {
 } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import api from '../../../../services/api';
+import { useBranding } from '../../../../context/BrandingContext';
 
 const HelpSupport = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showContactForm, setShowContactForm] = useState(false);
-  const [supportInfo, setSupportInfo] = useState({
-    email: 'support@homestr.com',
-    phone: '',
-    whatsapp: ''
-  });
+  const { supportEmail, supportPhone, companyEmail, companyPhone } = useBranding();
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const response = await api.get('/public/config');
-        if (response.data?.success && response.data?.settings) {
-          const { supportEmail, supportPhone, supportWhatsapp } = response.data.settings;
-          setSupportInfo({
-            email: supportEmail || 'support@homestr.com',
-            phone: supportPhone || '',
-            whatsapp: supportWhatsapp || ''
-          });
-        }
-      } catch (error) {
-        console.error('Failed to fetch support settings:', error);
-      }
-    };
-    fetchSettings();
-  }, []);
+  const supportInfo = {
+    email: supportEmail || companyEmail || 'support@homestr.com',
+    phone: supportPhone || companyPhone || '',
+    whatsapp: supportPhone || companyPhone || ''
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

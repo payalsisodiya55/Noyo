@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { FiFacebook, FiTwitter, FiInstagram, FiLinkedin, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import Logo from '../../../../components/common/Logo';
 import { configService } from '../../../../services/configService';
+import { useBranding } from '../../../../context/BrandingContext';
 
 const Footer = () => {
   const location = useLocation();
   const currentYear = new Date().getFullYear();
   const [settings, setSettings] = useState(null);
+  const { supportEmail, supportPhone, companyAddress, companyName } = useBranding();
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -49,17 +51,17 @@ const Footer = () => {
       title: 'Contact Us',
       links: [
         { 
-          label: settings?.supportEmail || settings?.companyEmail || 'support@homestr.in', 
-          path: `mailto:${settings?.supportEmail || settings?.companyEmail || 'support@homestr.in'}`, 
+          label: supportEmail || settings?.supportEmail || settings?.companyEmail || 'support@homestr.in', 
+          path: `mailto:${supportEmail || settings?.supportEmail || settings?.companyEmail || 'support@homestr.in'}`, 
           icon: FiMail 
         },
         { 
-          label: settings?.supportPhone || settings?.companyPhone || '+91 98765 43210', 
-          path: `tel:${(settings?.supportPhone || settings?.companyPhone || '+91 98765 43210').replace(/\s/g, '')}`, 
+          label: supportPhone || settings?.supportPhone || settings?.companyPhone || '+91 98765 43210', 
+          path: `tel:${(supportPhone || settings?.supportPhone || settings?.companyPhone || '+91 98765 43210').replace(/\s/g, '')}`, 
           icon: FiPhone 
         },
         { 
-          label: settings?.companyAddress ? `${settings.companyAddress}, ${settings.companyCity}, ${settings.companyState} - ${settings.companyPincode}` : 'Bhopal, Madhya Pradesh, India', 
+          label: companyAddress || (settings?.companyAddress ? `${settings.companyAddress}, ${settings.companyCity}, ${settings.companyState} - ${settings.companyPincode}` : 'Bhopal, Madhya Pradesh, India'), 
           path: '#', 
           icon: FiMapPin 
         },
@@ -81,7 +83,7 @@ const Footer = () => {
               <Logo className="h-10 w-auto" />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-              {settings?.companyName || 'Homestr'} is your one-stop destination for all home services. From electrical repairs to premium salon services, we bring the experts to your doorstep.
+              {companyName || settings?.companyName || 'Homestr'} is your one-stop destination for all home services. From electrical repairs to premium salon services, we bring the experts to your doorstep.
             </p>
             <div className="flex items-center gap-4">
               {[FiFacebook, FiTwitter, FiInstagram, FiLinkedin].map((Icon, i) => (
@@ -133,7 +135,7 @@ const Footer = () => {
         {/* Bottom Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-gray-400 text-sm">
-            © {currentYear} {settings?.companyName || 'Homestr'}. All rights reserved.
+            © {currentYear} {companyName || settings?.companyName || 'Homestr'}. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link to="#" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">Privacy</Link>

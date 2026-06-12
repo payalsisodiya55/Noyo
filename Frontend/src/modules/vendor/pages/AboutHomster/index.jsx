@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowLeft, FiCheckCircle, FiUsers, FiShield, FiClock, FiAward, FiHeart, FiGlobe, FiSmile, FiSmartphone } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import Logo from '../../../../components/common/Logo';
+import { useBranding } from '../../../../context/BrandingContext';
 
 const AboutHomestr = () => {
   const navigate = useNavigate();
+  const { appName, aboutPage } = useBranding();
+
+  const iconMap = {
+    users: FiUsers,
+    shield: FiShield,
+    clock: FiClock,
+    award: FiAward,
+    heart: FiHeart,
+    globe: FiGlobe,
+    smile: FiSmile,
+    smartphone: FiSmartphone
+  };
 
   // Container animation variants
   const containerVariants = {
@@ -38,33 +51,31 @@ const AboutHomestr = () => {
     WebkitTextFillColor: 'transparent',
   };
 
-  const features = [
-    {
-      icon: FiUsers,
-      title: 'Expert Providers',
-      description: 'Verified professionals for all your needs'
-    },
-    {
-      icon: FiShield,
-      title: 'Safe & Secure',
-      description: 'Your safety is our top priority'
-    },
-    {
-      icon: FiClock,
-      title: 'On-Time Service',
-      description: 'Punctual delivery at your convenience'
-    },
-    {
-      icon: FiAward,
-      title: 'Quality Assured',
-      description: 'Service with 100% satisfaction guarantee'
-    }
-  ];
-
-  const stats = [
+  const stats = aboutPage?.stats?.length > 0 ? aboutPage.stats : [
     { number: '10K+', label: 'Happy Customers' },
     { number: '500+', label: 'Service Partners' },
     { number: '4.8', label: 'App Rating' },
+  ];
+
+  const features = aboutPage?.features?.length > 0 ? aboutPage.features.map(f => ({
+    icon: iconMap[f.icon] || FiUsers,
+    title: f.title,
+    description: f.description
+  })) : [
+    { icon: FiUsers, title: 'Expert Providers', description: 'Verified professionals for all your needs' },
+    { icon: FiShield, title: 'Safe & Secure', description: 'Your safety is our top priority' },
+    { icon: FiClock, title: 'On-Time Service', description: 'Punctual delivery at your convenience' },
+    { icon: FiAward, title: 'Quality Assured', description: 'Service with 100% satisfaction guarantee' }
+  ];
+
+  const steps = aboutPage?.howItWorksSteps?.length > 0 ? aboutPage.howItWorksSteps.map(s => ({
+    title: s.title,
+    desc: s.desc,
+    icon: iconMap[s.icon] || FiSmile
+  })) : [
+    { title: 'Book Details', desc: 'Select service & schedule time', icon: FiSmartphone },
+    { title: 'Get Matched', desc: 'We assign a top-rated pro', icon: FiUsers },
+    { title: 'Relax', desc: 'Enjoy high-quality service', icon: FiSmile },
   ];
 
   return (
@@ -92,7 +103,7 @@ const AboutHomestr = () => {
           >
             <FiArrowLeft className="w-5 h-5 text-gray-700" />
           </button>
-          <span className="text-xl font-bold" style={homestrTextGradient}>About Homestr</span>
+          <span className="text-xl font-bold" style={homestrTextGradient}>About {appName}</span>
         </div>
       </header>
 
@@ -115,10 +126,10 @@ const AboutHomestr = () => {
           </div>
 
           <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
-            Welcome to <span style={homestrTextGradient}>Homestr</span>
+            Welcome to <span style={homestrTextGradient}>{aboutPage?.welcomeTitle || `Welcome to ${appName}`}</span>
           </h1>
           <p className="text-gray-500 max-w-xs mx-auto leading-relaxed">
-            Your trusted partner for premium home and personal care services.
+            {aboutPage?.welcomeSubtitle || 'Your trusted partner for premium home and personal care services.'}
           </p>
         </motion.div>
 
@@ -142,16 +153,16 @@ const AboutHomestr = () => {
             <div className="absolute top-0 right-0 p-4 opacity-5">
               <FiGlobe className="w-24 h-24" />
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Our Mission</h3>
+            <h3 className="text-lg font-bold text-gray-800 mb-3">{aboutPage?.missionTitle || 'Our Mission'}</h3>
             <p className="text-sm text-gray-600 leading-relaxed relative z-10">
-              Homestr is dedicated to revolutionizing how you experience home services. We connect you with top-tier professionals to deliver safe, reliable, and high-quality services right at your doorstep. We believe in making life simpler, one service at a time.
+              {aboutPage?.missionDescription || `${appName} is dedicated to revolutionizing how you experience home services. We connect you with top-tier professionals to deliver safe, reliable, and high-quality services right at your doorstep. We believe in making life simpler, one service at a time.`}
             </p>
           </div>
         </motion.div>
 
         {/* Why Choose Us Grid */}
         <motion.div variants={itemVariants}>
-          <h3 className="text-lg font-bold text-gray-800 mb-4 px-1">Why Choose Homestr?</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4 px-1">{aboutPage?.whyChooseTitle || `Why Choose ${appName}?`}</h3>
           <div className="grid grid-cols-2 gap-3">
             {features.map((feature, index) => (
               <div
@@ -171,32 +182,31 @@ const AboutHomestr = () => {
 
         {/* How It Works */}
         <motion.div variants={itemVariants}>
-          <h3 className="text-lg font-bold text-gray-800 mb-4 px-1">How We Work</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4 px-1">{aboutPage?.howItWorksTitle || 'How We Work'}</h3>
           <div className="bg-white rounded-2xl p-1 shadow-sm border border-gray-100">
-            {[
-              { title: 'Book Details', desc: 'Select service & schedule time', icon: FiSmartphone },
-              { title: 'Get Matched', desc: 'We assign a top-rated pro', icon: FiUsers },
-              { title: 'Relax', desc: 'Enjoy high-quality service', icon: FiSmile },
-            ].map((step, i) => (
-              <div key={i} className="flex items-center p-4 border-b last:border-0 border-gray-50 relative">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 mr-4 shadow-sm text-white font-bold text-lg relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#347989] to-[#BB5F36]" />
-                  <span className="relative z-10">{i + 1}</span>
+            {steps.map((step, i) => {
+              const StepIcon = step.icon;
+              return (
+                <div key={i} className="flex items-center p-4 border-b last:border-0 border-gray-50 relative">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 mr-4 shadow-sm text-white font-bold text-lg relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#347989] to-[#BB5F36]" />
+                    <span className="relative z-10">{i + 1}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-800">{step.title}</h4>
+                    <p className="text-xs text-gray-500">{step.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-gray-800">{step.title}</h4>
-                  <p className="text-xs text-gray-500">{step.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 
         {/* Footer Info */}
         <motion.div variants={itemVariants} className="text-center pt-4 border-t border-gray-200">
           <p className="text-xs text-gray-400 mb-1">Designed & Developed by</p>
-          <span className="text-sm font-bold tracking-wide" style={homestrTextGradient}>Homestr Team</span>
-          <p className="text-[10px] text-gray-300 mt-4">v7.6.27 • Made with ❤️ in India</p>
+          <span className="text-sm font-bold tracking-wide" style={homestrTextGradient}>{aboutPage?.footerDeveloper || `${appName} Team`}</span>
+          <p className="text-[10px] text-gray-300 mt-4">{aboutPage?.footerVersion || 'v7.6.27'} • {aboutPage?.footerMadeIn || 'Made with ❤️ in India'}</p>
         </motion.div>
       </main>
 

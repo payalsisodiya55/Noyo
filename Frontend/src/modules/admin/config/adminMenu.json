@@ -158,6 +158,15 @@
     "children": []
   },
   {
+    "title": "Business Setup",
+    "route": "/admin/business-setup",
+    "allowedRoles": [
+      "super_admin",
+      "admin"
+    ],
+    "children": []
+  },
+  {
     "title": "Settings",
     "route": "/admin/settings",
     "allowedRoles": [

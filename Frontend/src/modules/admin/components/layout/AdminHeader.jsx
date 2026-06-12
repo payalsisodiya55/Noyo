@@ -58,6 +58,7 @@ const AdminHeader = ({ onMenuClick }) => {
       { path: '/admin/reports', title: 'Reports', description: 'Analyze platform performance with data insights' },
       { path: '/admin/notifications', title: 'Notifications', description: 'Stay updated with platform activities' },
       { path: '/admin/settings', title: 'Settings', description: 'Configure platform preferences' },
+      { path: '/admin/business-setup', title: 'Business Setup', description: 'Configure dynamic white label branding settings' },
       { path: '/admin/plans', title: 'Subscription Plans', description: 'Manage service subscription plans' },
       { path: '/admin/services', title: 'Services', description: 'Manage platform service categories' },
       { path: '/admin/services', title: 'Services', description: 'Manage platform service categories' },

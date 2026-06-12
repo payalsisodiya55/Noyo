@@ -8,9 +8,11 @@ import { vendorAuthService } from '../../../../services/authService';
 import Header from '../../components/layout/Header';
 import BottomNav from '../../components/layout/BottomNav';
 import LogoLoader from '../../../../components/common/LogoLoader';
+import { useBranding } from '../../../../context/BrandingContext';
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { appName } = useBranding();
 
   // Helper function to convert hex to rgba
   const hexToRgba = (hex, alpha) => {
@@ -26,7 +28,7 @@ const Profile = () => {
     { id: 6, label: 'Manage Payment Methods', icon: FiCreditCard, path: '/vendor/manage-payment-methods' },
     { id: 7, label: 'Manage Address', icon: FiMapPin, path: '/vendor/address-management' },
     { id: 8, label: 'Settings', icon: FiSettings, path: '/vendor/settings' },
-    { id: 9, label: 'About Homestr', icon: null, customIcon: 'H', path: '/vendor/about-homestr' },
+    { id: 9, label: `About ${appName || 'Noyo'}`, icon: null, customIcon: (appName || 'Noyo')[0].toUpperCase(), path: '/vendor/about-homestr' },
   ];
 
   const [profile, setProfile] = useState(null);

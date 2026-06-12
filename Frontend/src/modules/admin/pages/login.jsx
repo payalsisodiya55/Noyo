@@ -4,9 +4,11 @@ import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { themeColors } from '../../../theme';
 import { adminAuthService } from '../../../services/authService';
+import { useBranding } from '../../../context/BrandingContext';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const { primaryColor, secondaryColor, loginLogoUrl, appName } = useBranding();
   const [formData, setFormData] = useState({
     email: 'admin@admin.com',
     password: ''
@@ -58,28 +60,32 @@ const AdminLogin = () => {
     <div
       className="min-h-screen flex items-center justify-center px-4"
       style={{
-        background: 'linear-gradient(135deg, #00a6a6 0%, #008a8a 50%, #006b6b 100%)'
+        background: `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`
       }}
     >
       <div className="w-full max-w-md">
         {/* White Card */}
         <div className="bg-white rounded-2xl shadow-2xl p-8">
-          {/* Icon */}
+          {/* Logo / Icon */}
           <div className="flex justify-center mb-6">
-            <div
-              className="w-16 h-16 rounded-xl flex items-center justify-center"
-              style={{
-                background: `linear-gradient(135deg, ${themeColors.button} 0%, #008a8a 100%)`,
-                boxShadow: `0 4px 12px rgba(0, 166, 166, 0.3)`
-              }}
-            >
-              <FiLock className="w-8 h-8 text-white" />
-            </div>
+            {loginLogoUrl ? (
+              <img src={loginLogoUrl} alt="Logo" className="h-16 object-contain" />
+            ) : (
+              <div
+                className="w-16 h-16 rounded-xl flex items-center justify-center animate-pulse-subtle"
+                style={{
+                  background: `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`,
+                  boxShadow: `0 4px 12px ${primaryColor}4d`
+                }}
+              >
+                <FiLock className="w-8 h-8 text-white" />
+              </div>
+            )}
           </div>
 
           {/* Title */}
           <h1 className="text-3xl font-bold text-gray-900 text-center mb-2">
-            Admin Login
+            {appName || 'Admin'} Login
           </h1>
           <p className="text-gray-600 text-center mb-8">
             Enter your credentials to access the admin panel
@@ -96,7 +102,7 @@ const AdminLogin = () => {
                 <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
                   <FiMail className="w-5 h-5 text-gray-400" />
                 </div>
-                <input
+                 <input
                   type="email"
                   name="email"
                   value={formData.email}
@@ -104,11 +110,11 @@ const AdminLogin = () => {
                   placeholder="admin@admin.com"
                   className="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:border-transparent text-gray-900"
                   style={{
-                    focusRingColor: themeColors.button
+                    focusRingColor: primaryColor
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = themeColors.button;
-                    e.target.style.boxShadow = `0 0 0 3px rgba(0, 166, 166, 0.1)`;
+                    e.target.style.borderColor = primaryColor;
+                    e.target.style.boxShadow = `0 0 0 3px ${primaryColor}1a`;
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = '#d1d5db';
@@ -136,8 +142,8 @@ const AdminLogin = () => {
                   placeholder="Enter your password"
                   className="w-full pl-12 pr-12 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:border-transparent text-gray-900"
                   onFocus={(e) => {
-                    e.target.style.borderColor = themeColors.button;
-                    e.target.style.boxShadow = `0 0 0 3px rgba(0, 166, 166, 0.1)`;
+                    e.target.style.borderColor = primaryColor;
+                    e.target.style.boxShadow = `0 0 0 3px ${primaryColor}1a`;
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = '#d1d5db';
@@ -164,7 +170,7 @@ const AdminLogin = () => {
                 onChange={(e) => setRememberMe(e.target.checked)}
                 className="w-4 h-4 border-gray-300 rounded"
                 style={{
-                  accentColor: themeColors.button
+                  accentColor: primaryColor
                 }}
               />
               <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700">
@@ -178,20 +184,20 @@ const AdminLogin = () => {
               disabled={isLoading}
               className="w-full py-3 rounded-xl text-white font-semibold text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
-                background: `linear-gradient(135deg, ${themeColors.button} 0%, #008a8a 100%)`,
-                boxShadow: '0 4px 12px rgba(0, 166, 166, 0.3)'
+                background: `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`,
+                boxShadow: `0 4px 12px ${primaryColor}33`
               }}
               onMouseEnter={(e) => {
                 if (!e.currentTarget.disabled) {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 166, 166, 0.4)';
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #008a8a 0%, #006b6b 100%)';
+                  e.currentTarget.style.boxShadow = `0 6px 16px ${primaryColor}4d`;
+                  e.currentTarget.style.background = `linear-gradient(135deg, ${secondaryColor} 0%, ${primaryColor} 100%)`;
                 }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 166, 166, 0.3)';
-                e.currentTarget.style.background = `linear-gradient(135deg, ${themeColors.button} 0%, #008a8a 100%)`;
+                e.currentTarget.style.boxShadow = `0 4px 12px ${primaryColor}33`;
+                e.currentTarget.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
               }}
             >
               {isLoading ? 'Logging in...' : 'Login'}
@@ -202,11 +208,11 @@ const AdminLogin = () => {
           <div
             className="mt-8 p-4 rounded-xl"
             style={{
-              background: 'linear-gradient(135deg, rgba(0, 166, 166, 0.1) 0%, rgba(0, 138, 138, 0.05) 100%)',
-              border: '1px solid rgba(0, 166, 166, 0.2)'
+              background: `linear-gradient(135deg, ${primaryColor}1a 0%, ${secondaryColor}0d 100%)`,
+              border: `1px solid ${primaryColor}33`
             }}
           >
-            <h3 className="text-sm font-semibold mb-2" style={{ color: themeColors.button }}>Demo Credentials:</h3>
+            <h3 className="text-sm font-semibold mb-2" style={{ color: primaryColor }}>Demo Credentials:</h3>
             <div className="text-sm text-gray-700 space-y-1">
               <p>Email: admin@admin.com</p>
               <p>Password: admin123</p>

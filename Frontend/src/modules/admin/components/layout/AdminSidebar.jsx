@@ -17,6 +17,7 @@ import {
   FiPackage,
   FiTrash2,
   FiStar,
+  FiSliders,
 } from "react-icons/fi";
 import adminMenu from "../../config/adminMenu.json";
 import dashboardService from "../../services/dashboardService";
@@ -37,6 +38,7 @@ const iconMap = {
   "Scrap Items": FiTrash2,
   Reviews: FiStar,
   Settlements: FiDollarSign,
+  "Business Setup": FiSliders,
   Settings: FiSettings,
   Plans: FiPackage,
 };

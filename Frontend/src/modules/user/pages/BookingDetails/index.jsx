@@ -36,6 +36,7 @@ import { ConfirmDialog } from '../../../../components/common';
 import ReviewCard from '../../components/booking/ReviewCard';
 import NotificationBell from '../../components/common/NotificationBell';
 import api from '../../../../services/api';
+import { useBranding } from '../../../../context/BrandingContext';
 
 const toAssetUrl = (url) => {
   if (!url) return '';
@@ -61,35 +62,14 @@ const BookingDetails = () => {
     onConfirm: () => { }
   });
 
-  const [supportInfo, setSupportInfo] = useState({
-    email: 'support@homestr.com',
-    phone: ''
-  });
+  const { supportEmail, supportPhone, companyEmail, companyPhone } = useBranding();
+
+  const supportInfo = {
+    email: supportEmail || companyEmail || 'help@homestr.in',
+    phone: supportPhone || companyPhone || '+919999999999'
+  };
 
   const socket = useAppNotifications();
-
-  // Fetch support settings
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const response = await api.get('/public/config');
-        if (response.data?.success && response.data?.settings) {
-          const { supportEmail, supportPhone } = response.data.settings;
-          setSupportInfo({
-            email: supportEmail || 'help@homestr.in',
-            phone: supportPhone || '+919999999999'
-          });
-        }
-      } catch (error) {
-        console.error('Failed to fetch support settings:', error);
-        setSupportInfo({
-          email: 'help@homestr.in',
-          phone: '+919999999999'
-        });
-      }
-    };
-    fetchSettings();
-  }, []);
 
   // Function to load booking
   const loadBooking = async () => {

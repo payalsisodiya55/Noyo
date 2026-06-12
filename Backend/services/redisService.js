@@ -19,21 +19,25 @@ const initRedis = () => {
 
   try {
     const redisUrl = process.env.REDIS_URL;
+    const commonOptions = {
+      maxRetriesPerRequest: 3,
+      retryStrategy: (times) => {
+        if (times > 3) {
+          console.log('[Redis] Max retries reached, disabling Redis support');
+          return null;
+        }
+        return Math.min(times * 200, 2000);
+      }
+    };
 
     if (redisUrl) {
-      redis = new Redis(redisUrl);
+      redis = new Redis(redisUrl, commonOptions);
     } else {
       redis = new Redis({
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT) || 6379,
         password: process.env.REDIS_PASSWORD || undefined,
-        retryStrategy: (times) => {
-          if (times > 3) {
-            console.log('[Redis] Max retries reached, giving up');
-            return null;
-          }
-          return Math.min(times * 200, 2000);
-        }
+        ...commonOptions
       });
     }
 

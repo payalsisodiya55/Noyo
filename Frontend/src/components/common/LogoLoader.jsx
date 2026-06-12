@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+import { useBranding } from '../../context/BrandingContext';
+
 /**
  * LogoLoader Component
  * @param {boolean} fullScreen - If true, shows a full-screen overlay (for initial app load). 
@@ -10,6 +12,14 @@ import { motion } from 'framer-motion';
  * @param {string} size - Size classes for the logo
  */
 const LogoLoader = ({ fullScreen = false, overlay = false, inline = false, size = "w-20 h-20" }) => {
+  let logo = "/Homster-logo.png";
+  try {
+    const branding = useBranding();
+    logo = branding.logoUrl || logo;
+  } catch (e) {
+    // Context not loaded/wrapped yet
+  }
+
   // For route transitions (default), use a non-blocking loader
   // For initial app load, use fullScreen with overlay
   // For inline loading (e.g. buttons), use inline
@@ -37,7 +47,7 @@ const LogoLoader = ({ fullScreen = false, overlay = false, inline = false, size 
         className={`relative ${size} flex items-center justify-center`}
       >
         <img
-          src="/Homster-logo.png"
+          src={logo}
           alt="Loading..."
           className="w-full h-full object-contain"
         />
