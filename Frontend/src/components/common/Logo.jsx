@@ -7,16 +7,34 @@ import { useBranding } from '../../context/BrandingContext';
  * Supports ref for animations
  */
 const Logo = forwardRef(({ className = "h-8 w-auto", ...props }, ref) => {
-  const { logoUrl, appName } = useBranding();
+  let logoUrl = '';
+  let appName = 'Noyo';
+  try {
+    const branding = useBranding();
+    logoUrl = branding.logoUrl;
+    appName = branding.appName;
+  } catch (e) {
+    // Context not loaded/wrapped yet
+  }
+
+  // Clean the className to make sure it functions as a square container
+  const cleanClassName = className
+    .replace('w-auto', 'aspect-square')
+    .replace('object-contain', '');
 
   return (
-    <img
+    <div
       ref={ref}
-      src={logoUrl || "/Homster-logo.png"}
-      alt={appName || "Homestr"}
-      className={`${className} object-contain`}
-      {...props}
-    />
+      className={`rounded-full bg-white border border-slate-200/60 shadow-sm flex items-center justify-center overflow-hidden shrink-0 aspect-square ${cleanClassName}`}
+      style={{ boxSizing: 'border-box' }}
+    >
+      <img
+        src={logoUrl || "/Homster-logo.png"}
+        alt={appName || "Homestr"}
+        className="w-full h-full object-contain p-1"
+        {...props}
+      />
+    </div>
   );
 });
 
